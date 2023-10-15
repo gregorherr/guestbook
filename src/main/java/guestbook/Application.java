@@ -60,11 +60,11 @@ public class Application {
 		return args -> {
 
 			Stream.of( //
-					new GuestbookEntry("H4xx0r", "first!!!"), //
-					new GuestbookEntry("Arni", "Hasta la vista, baby"), //
-					new GuestbookEntry("Duke Nukem",
+					new GuestbookEntry("h4xx0r@gmail.com", "H4xx0r", "first!!!"), //
+					new GuestbookEntry("arni@gmail.com", "Arni", "Hasta la vista, baby"), //
+					new GuestbookEntry("duke@gmail.com", "Duke Nukem",
 							"It's time to kick ass and chew bubble gum. And I'm all out of gum."), //
-					new GuestbookEntry("Gump1337",
+					new GuestbookEntry("gump1337@gmail.com", "Gump1337",
 							"Mama always said life was like a box of chocolates. You never know what you're gonna get.")) //
 					.forEach(guestbook::save);
 		};

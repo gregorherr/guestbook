@@ -19,7 +19,7 @@
 
 		<br />
 
-		<div id="entries" class="mx-auto">			
+		<div id="entries" class="mx-auto">
 			<div th:each="entry, it : ${entries}" th:with="index = ${it.count}" th:fragment="entries">
 				<div class="card" th:fragment="entry" th:id="entry+${entry.id}">
 					<div class="card-header">
@@ -30,7 +30,7 @@
 								<span class="fas fa-times"></span>
 							</button>
 						</form>
-						<h4 th:text="${index} + '. ' + ${entry.name}" class="card-title">1. Posting</h4>
+						<h4 th:text="${index} + '. ' + ${entry.name} + ' (' + ${entry.email} + ')'" class="card-title">1. Posting</h4>
 					</div>
 					<div class="card-body">
 						<blockquote class="entrytext" th:text="${entry.text}"></blockquote>
@@ -44,12 +44,17 @@
 
 		<form method="post" role="form" class="gb-form" id="form" hx:post="@{/guestbook}" hx-target="#entries" hx-swap="beforeend" _="on entryAdded me.reset()" th:action="@{/guestbook}" th:object="${form}">
 			<div class="form-group">
-				<label for="name" th:text="#{guestbook.form.name}">Name</label><br /> 
-				<input class="form-control" type="text" th:field="*{name}" th:errorclass="is-invalid" required="required" />
-				<div th:if="${#fields.hasErrors('name')}" class="invalid-feedback" th:text="#{guestbook.form.name.required}">Please provide a name.</div> 
+				<label for="email" th:text="#{guestbook.form.email}">Email</label><br />
+				<input class="form-control" type="email" th:field="*{email}" th:errorclass="is-invalid" required="required" />
+				<div th:if="${#fields.hasErrors('email')}" class="invalid-feedback" th:text="#{guestbook.form.email.required}">Please provide a valid email.</div>
 			</div>
 			<div class="form-group">
-				<label for="text" th:text="#{guestbook.form.text}">Text</label><br /> 
+				<label for="name" th:text="#{guestbook.form.name}">Name</label><br />
+				<input class="form-control" type="text" th:field="*{name}" th:errorclass="is-invalid" required="required" />
+				<div th:if="${#fields.hasErrors('name')}" class="invalid-feedback" th:text="#{guestbook.form.name.required}">Please provide a name.</div>
+			</div>
+			<div class="form-group">
+				<label for="text" th:text="#{guestbook.form.text}">Text</label><br />
 				<textarea th:field="*{text}" th:errorclass="is-invalid" class="form-control" required="required"></textarea>
 				<div th:if="${#fields.hasErrors('text')}" class="invalid-feedback" th:text="#{guestbook.form.text.required}">Please provide a text.</div>
 			</div>

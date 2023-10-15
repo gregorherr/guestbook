@@ -16,6 +16,7 @@
 package guestbook;
 
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,20 +35,24 @@ import org.springframework.util.Assert;
 class GuestbookEntry {
 
 	private @Id @GeneratedValue Long id;
-	private final String name, text;
+	private final String email, name, text;
 	private final LocalDateTime date;
+
+	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
 	/**
 	 * Creates a new {@link GuestbookEntry} for the given name and text.
 	 *
+	 * @param email must not be {@literal null} or empty
 	 * @param name must not be {@literal null} or empty
 	 * @param text must not be {@literal null} or empty
 	 */
-	public GuestbookEntry(String name, String text) {
-
+	public GuestbookEntry(String email, String name, String text) {
+		Assert.isTrue(VALID_EMAIL_ADDRESS_REGEX.matcher(email).find(), "Enter a valid email-address!");
 		Assert.hasText(name, "Name must not be null or empty!");
 		Assert.hasText(text, "Text must not be null or empty!");
 
+		this.email = email;
 		this.name = name;
 		this.text = text;
 		this.date = LocalDateTime.now();
@@ -55,9 +60,14 @@ class GuestbookEntry {
 
 	@SuppressWarnings("unused")
 	private GuestbookEntry() {
+		this.email = null;
 		this.name = null;
 		this.text = null;
 		this.date = null;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 
 	public String getName() {
