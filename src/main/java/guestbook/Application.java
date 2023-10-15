@@ -15,8 +15,6 @@
  */
 package guestbook;
 
-import java.util.stream.Stream;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +25,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.stream.Stream;
 
 /**
  * The core class to bootstrap our application. It triggers Spring Boot's auto-configuration, component scanning and
@@ -40,66 +40,66 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class Application {
 
-	/**
-	 * The main application method, bootstraps the Spring container.
-	 *
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    /**
+     * The main application method, bootstraps the Spring container.
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	/**
-	 * Some initializing code to populate our database with some {@link GuestbookEntry}s. Beans of type
-	 * {@link CommandLineRunner} will be executed on application startup which makes them a convenient way to run
-	 * initialization code.
-	 */
-	@Bean
-	CommandLineRunner init(GuestbookRepository guestbook) {
+    /**
+     * Some initializing code to populate our database with some {@link GuestbookEntry}s. Beans of type
+     * {@link CommandLineRunner} will be executed on application startup which makes them a convenient way to run
+     * initialization code.
+     */
+    @Bean
+    CommandLineRunner init(GuestbookRepository guestbook) {
 
-		return args -> {
+        return args -> {
 
-			Stream.of( //
-					new GuestbookEntry("h4xx0r@gmail.com", "H4xx0r", "first!!!"), //
-					new GuestbookEntry("arni@gmail.com", "Arni", "Hasta la vista, baby"), //
-					new GuestbookEntry("duke@gmail.com", "Duke Nukem",
-							"It's time to kick ass and chew bubble gum. And I'm all out of gum."), //
-					new GuestbookEntry("gump1337@gmail.com", "Gump1337",
-							"Mama always said life was like a box of chocolates. You never know what you're gonna get.")) //
-					.forEach(guestbook::save);
-		};
-	}
+            Stream.of( //
+                            new GuestbookEntry("h4xx0r@gmail.com", "H4xx0r", "first!!!"), //
+                            new GuestbookEntry("arni@gmail.com", "Arni", "Hasta la vista, baby"), //
+                            new GuestbookEntry("duke@gmail.com", "Duke Nukem",
+                                    "It's time to kick ass and chew bubble gum. And I'm all out of gum."), //
+                            new GuestbookEntry("gump1337@gmail.com", "Gump1337",
+                                    "Mama always said life was like a box of chocolates. You never know what you're gonna get.")) //
+                    .forEach(guestbook::save);
+        };
+    }
 
-	/**
-	 * This class customizes the web and web security configuration through callback methods provided by the
-	 * {@link WebMvcConfigurer} interface.
-	 */
-	@Configuration
-	@EnableGlobalMethodSecurity(prePostEnabled = true)
-	static class SecurityConfiguration implements WebMvcConfigurer {
+    /**
+     * This class customizes the web and web security configuration through callback methods provided by the
+     * {@link WebMvcConfigurer} interface.
+     */
+    @Configuration
+    @EnableGlobalMethodSecurity(prePostEnabled = true)
+    static class SecurityConfiguration implements WebMvcConfigurer {
 
-		/*
-		 * (non-Javadoc)
-		 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addViewControllers(org.springframework.web.servlet.config.annotation.ViewControllerRegistry)
-		 */
-		@Override
-		public void addViewControllers(ViewControllerRegistry registry) {
+        /*
+         * (non-Javadoc)
+         * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addViewControllers(org.springframework.web.servlet.config.annotation.ViewControllerRegistry)
+         */
+        @Override
+        public void addViewControllers(ViewControllerRegistry registry) {
 
-			// Route requests to /login to the login view (a default one provided by Spring Security)
-			registry.addViewController("/login").setViewName("login");
-		}
+            // Route requests to /login to the login view (a default one provided by Spring Security)
+            registry.addViewController("/login").setViewName("login");
+        }
 
-		@Bean
-		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-			http.csrf().disable();
+            http.csrf().disable();
 
-			// Allow all requests on the URI level, configure form login.
-			http.authorizeRequests().anyRequest().permitAll() //
-					.and().formLogin() //
-					.and().logout().logoutSuccessUrl("/").clearAuthentication(true);
+            // Allow all requests on the URI level, configure form login.
+            http.authorizeRequests().anyRequest().permitAll() //
+                    .and().formLogin() //
+                    .and().logout().logoutSuccessUrl("/").clearAuthentication(true);
 
-			return http.build();
-		}
-	}
+            return http.build();
+        }
+    }
 }

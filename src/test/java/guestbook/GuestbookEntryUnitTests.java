@@ -15,9 +15,10 @@
  */
 package guestbook;
 
-import static org.assertj.core.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * Unit tests for {@link GuestbookEntry}.
@@ -26,40 +27,40 @@ import org.junit.jupiter.api.Test;
  */
 class GuestbookEntryUnitTests {
 
-	@Test
-	void rejectsEmptyName() {
+    @Test
+    void rejectsEmptyName() {
 
-		assertThatExceptionOfType(IllegalArgumentException.class)//
-				.isThrownBy(() -> new GuestbookEntry("hi@gmail.com", "", "May the 4th be with you!"));
-	}
+        assertThatExceptionOfType(IllegalArgumentException.class)//
+                .isThrownBy(() -> new GuestbookEntry("hi@gmail.com", "", "May the 4th be with you!"));
+    }
 
-	@Test
-	void rejectsEmptyText() {
+    @Test
+    void rejectsEmptyText() {
 
-		assertThatExceptionOfType(IllegalArgumentException.class)//
-				.isThrownBy(() -> new GuestbookEntry("hi@gmail.com", "Ollie", ""));
-	}
+        assertThatExceptionOfType(IllegalArgumentException.class)//
+                .isThrownBy(() -> new GuestbookEntry("hi@gmail.com", "Ollie", ""));
+    }
 
-	@Test
-	void rejectsEmptyEmail() {
+    @Test
+    void rejectsEmptyEmail() {
 
-		assertThatExceptionOfType(IllegalArgumentException.class)//
-				.isThrownBy(() -> new GuestbookEntry("", "Ollie", "May the 4th be with you!"));
-	}
+        assertThatExceptionOfType(IllegalArgumentException.class)//
+                .isThrownBy(() -> new GuestbookEntry("", "Ollie", "May the 4th be with you!"));
+    }
 
-	@Test
-	void rejectsInvalidEmail() {
+    @Test
+    void rejectsInvalidEmail() {
 
-		assertThatExceptionOfType(IllegalArgumentException.class)//
-				.isThrownBy(() -> new GuestbookEntry("duke.de", "Ollie", "May the 4th be with you!"));
-		assertThatExceptionOfType(IllegalArgumentException.class)//
-				.isThrownBy(() -> new GuestbookEntry("duke@you", "Ollie", "May the 4th be with you!"));
-		assertThatExceptionOfType(IllegalArgumentException.class)//
-				.isThrownBy(() -> new GuestbookEntry("duke!*@gmail.com", "Ollie", "May the 4th be with you!"));
-	}
+        assertThatExceptionOfType(IllegalArgumentException.class)//
+                .isThrownBy(() -> new GuestbookEntry("duke.de", "Ollie", "May the 4th be with you!"));
+        assertThatExceptionOfType(IllegalArgumentException.class)//
+                .isThrownBy(() -> new GuestbookEntry("duke@you", "Ollie", "May the 4th be with you!"));
+        assertThatExceptionOfType(IllegalArgumentException.class)//
+                .isThrownBy(() -> new GuestbookEntry("duke!*@gmail.com", "Ollie", "May the 4th be with you!"));
+    }
 
-	@Test
-	void setsCreationDate() {
-		assertThat(new GuestbookEntry("glausjam@gmail.com", "Ollie", "May the 4th be with you!").getDate()).isNotNull();
-	}
+    @Test
+    void setsCreationDate() {
+        assertThat(new GuestbookEntry("glausjam@gmail.com", "Ollie", "May the 4th be with you!").getDate()).isNotNull();
+    }
 }

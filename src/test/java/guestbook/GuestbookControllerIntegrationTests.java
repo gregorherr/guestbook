@@ -15,17 +15,17 @@
  */
 package guestbook;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.endsWith;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for {@link GuestbookController}.
@@ -36,30 +36,33 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class GuestbookControllerIntegrationTests {
 
-	@Autowired MockMvc mvc;
-	@Autowired GuestbookRepository repository;
+    @Autowired
+    MockMvc mvc;
+    @Autowired
+    GuestbookRepository repository;
 
-	@Test // #58
-	void redirectsToLoginPageForSecuredResource() throws Exception {
+    @Test
+        // #58
+    void redirectsToLoginPageForSecuredResource() throws Exception {
 
-		GuestbookEntry entry = repository.findAll().iterator().next();
+        GuestbookEntry entry = repository.findAll().iterator().next();
 
-		mvc.perform(delete("/guestbook/{id}", entry.getId())) //
-				.andExpect(status().is3xxRedirection()) //
-				.andExpect(header().string("Location", endsWith("/login")));
-	}
+        mvc.perform(delete("/guestbook/{id}", entry.getId())) //
+                .andExpect(status().is3xxRedirection()) //
+                .andExpect(header().string("Location", endsWith("/login")));
+    }
 
-	@Test // #58
-	@WithMockUser(roles = "ADMIN")
-	void returnsModelAndViewForSecuredUriAfterAuthentication() throws Exception {
+    @Test // #58
+    @WithMockUser(roles = "ADMIN")
+    void returnsModelAndViewForSecuredUriAfterAuthentication() throws Exception {
 
-		long numberOfEntries = repository.count();
-		GuestbookEntry entry = repository.findAll().iterator().next();
+        long numberOfEntries = repository.count();
+        GuestbookEntry entry = repository.findAll().iterator().next();
 
-		mvc.perform(delete("/guestbook/{id}", entry.getId())) //
-				.andExpect(status().is3xxRedirection()) //
-				.andExpect(view().name("redirect:/guestbook"));
+        mvc.perform(delete("/guestbook/{id}", entry.getId())) //
+                .andExpect(status().is3xxRedirection()) //
+                .andExpect(view().name("redirect:/guestbook"));
 
-		assertThat(repository.count()).isEqualTo(numberOfEntries - 1);
-	}
+        assertThat(repository.count()).isEqualTo(numberOfEntries - 1);
+    }
 }

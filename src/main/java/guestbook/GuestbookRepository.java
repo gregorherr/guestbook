@@ -28,12 +28,12 @@ import org.springframework.data.util.Streamable;
  */
 interface GuestbookRepository extends CrudRepository<GuestbookEntry, Long> {
 
-	/**
-	 * Returns all {@link GuestbookEntry}s created by the user with the given name, sorted by the given sort criteria.
-	 *
-	 * @param name the name to search for
-	 * @param sort the given sorting criteria
-	 * @return all {@link GuestbookEntry}s matching the query
-	 */
-	Streamable<GuestbookEntry> findByName(String name, Sort sort);
+    /**
+     * Returns all {@link GuestbookEntry}s created by the user with the given name, sorted by the given sort criteria.
+     *
+     * @param name the name to search for
+     * @param sort the given sorting criteria
+     * @return all {@link GuestbookEntry}s matching the query
+     */
+    Streamable<GuestbookEntry> findByName(String name, Sort sort);
 }

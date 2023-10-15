@@ -1,8 +1,8 @@
 # A Sample Java Web-Application
 :experimental:
 
-image:https://github.com/st-tu-dresden/guestbook/workflows/Build%20Maven%20artifacts/badge.svg["Build Status", link="https://github.com/st-tu-dresden/guestbook/actions?query=workflow%3A%22Build+Maven+artifacts%22"]
-image:https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod["Gitpod ready-to-code", link="https://gitpod.io/#https://github.com/st-tu-dresden/guestbook"]
+image:https://github.com/st-tu-dresden/guestbook/workflows/Build%20Maven%20artifacts/badge.svg["Build Status",link="https://github.com/st-tu-dresden/guestbook/actions?query=workflow%3A%22Build+Maven+artifacts%22"]
+image:https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod["Gitpod ready-to-code",link="https://gitpod.io/#https://github.com/st-tu-dresden/guestbook"]
 
 Purpose of this sample project is to make students familiar with basic technologies they're going to use during the Software Engineering Lab at Technical University of Dresden.
 
@@ -22,7 +22,7 @@ NOTE: Working on your local machine requires Java 17, and a recent Git (2.21 or 
 If you miss any of those go through the steps described in <<prerequisites>>.
 Also, note that you have to run `mvnw.cmd` instead of `./mvnw` if you run Windows by accident.
 
-[source, shell]
+[source,shell]
 ----
 $ git clone https://github.com/st-tu-dresden/guestbook
 $ cd guestbook
@@ -37,9 +37,10 @@ Note that Spring Boot creates a default user `user` with a random password print
 
 === Java 17
 
-https://adoptium.net/temurin/releases/?version=17[Download] the binaries, install. Make sure the console shows something like this:
+https://adoptium.net/temurin/releases/?version=17[Download] the binaries, install.
+Make sure the console shows something like this:
 
-[source, bash]
+[source,bash]
 ----
 $ java -version
 openjdk version "17.0.4.1" 2022-08-12
@@ -49,7 +50,7 @@ OpenJDK 64-Bit Server VM Temurin-17.0.4.1+1 (build 17.0.4.1+1, mixed mode)
 
 Make sure that the wrapped Maven picks up the same JDK version and that the following command shows similar output:
 
-[source, bash]
+[source,bash]
 ----
 $ ./mvnw --version
 Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
@@ -61,9 +62,10 @@ OS name: "mac os x", version: "12.6", arch: "aarch64", family: "mac"
 
 === Git
 
-https://git-scm.com/download[Download] the binaries, run the installer. Verify the command line shows something like this after install:
+https://git-scm.com/download[Download] the binaries, run the installer.
+Verify the command line shows something like this after install:
 
-[source, bash]
+[source,bash]
 ----
 $ git --version
 git version 2.33.0
@@ -75,7 +77,8 @@ git version 2.33.0
 
 Grab the latest https://spring.io/tools[Spring Tool Suite] (plain Eclipse should work as well), run installer or unzip and run it.
 
-Select menu:File[Import], select menu:Maven[Existing Maven Projects], select the folder you checked the project out into and hit btn:[Finish]. This will import the project into your workspace.
+Select menu:File[Import], select menu:Maven[Existing Maven Projects], select the folder you checked the project out into and hit btn:[Finish].
+This will import the project into your workspace.
 
 In the Console view you might wanna click the btn:[Open Console] button and select Maven Console to see that Maven is downloading dependencies, sources and Javadocs.
 
@@ -83,7 +86,8 @@ In the Console view you might wanna click the btn:[Open Console] button and sele
 
 Grab the latest https://www.jetbrains.com/idea/download/[IntelliJ IDEA IDE] (both Community Edition and Ultimate Edition will work), install it according to the instructions on their website and run it.
 
-From the Welcome Screen, select btn:[Open]. Otherwise, if you've already opened another project, you'll need to select menu:File[Open…].
+From the Welcome Screen, select btn:[Open].
+Otherwise, if you've already opened another project, you'll need to select menu:File[Open…].
 Now, navigate to the folder you checked the project out into (it should contain `pom.xml`), select it and hit btn:[Open].
 When asked whether to trust and open the Maven project, proceed with btn:[Trust Project].
 

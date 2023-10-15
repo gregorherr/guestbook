@@ -15,14 +15,13 @@
  */
 package guestbook;
 
-import static org.assertj.core.api.Assertions.*;
-
 import jakarta.transaction.Transactional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Integration tests for {@link GuestbookRepository}.
@@ -37,21 +36,23 @@ import org.springframework.data.domain.Sort;
 @Transactional
 class GuestbookRepositoryIntegrationTests {
 
-	@Autowired GuestbookRepository repository;
+    @Autowired
+    GuestbookRepository repository;
 
-	@Test
-	void persistsGuestbookEntry() {
+    @Test
+    void persistsGuestbookEntry() {
 
-		GuestbookEntry entry = repository.save(new GuestbookEntry("yoda@gmail.com","Yoda", "May the force be with you!"));
+        GuestbookEntry entry = repository.save(new GuestbookEntry("yoda@gmail.com", "Yoda", "May the force be with you!"));
 
-		assertThat(repository.findAll()).contains(entry);
-	}
+        assertThat(repository.findAll()).contains(entry);
+    }
 
-	@Test // #34
-	void findsGuestbookEntryByAuthorName() {
+    @Test
+        // #34
+    void findsGuestbookEntryByAuthorName() {
 
-		GuestbookEntry entry = repository.save(new GuestbookEntry("yoda@gmail.com", "Yoda", "May the force be with you!"));
+        GuestbookEntry entry = repository.save(new GuestbookEntry("yoda@gmail.com", "Yoda", "May the force be with you!"));
 
-		assertThat(repository.findByName("Yoda", Sort.by("date"))).contains(entry);
-	}
+        assertThat(repository.findByName("Yoda", Sort.by("date"))).contains(entry);
+    }
 }
